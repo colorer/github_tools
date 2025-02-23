@@ -20,8 +20,17 @@ jobs:
       - name: Build and push base image
         uses: docker/build-push-action@v6
         with:
-          file: ./dev-images/Dockerfile.gcc-clang7
+          file: ./dev-images/Dockerfile.gcc7
           push: true
-          tags: ghcr.io/colorer/gcc7-clang7:latest
-          cache-from: type=registry,ref=ghcr.io/colorer/gcc7-clang7:latest
+          tags: ghcr.io/colorer/devimage:gcc7
+          cache-from: type=registry,ref=ghcr.io/colorer/devimage:gcc7
           cache-to: type=inline
+
+      - name: Build and push base image
+        uses: docker/build-push-action@v6
+        with:
+            file: ./dev-images/Dockerfile.clang7
+            push: true
+            tags: ghcr.io/colorer/devimage:clang7
+            cache-from: type=registry,ref=ghcr.io/colorer/devimage:clang7
+            cache-to: type=inline

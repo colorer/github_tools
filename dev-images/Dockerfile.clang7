@@ -1,4 +1,4 @@
-# Image with gcc-7 and clang-7 dev environment
+# Image with clang-7 dev environment
 
 FROM ubuntu:20.04
 
@@ -11,6 +11,6 @@ RUN rm -f /etc/apt/apt.conf.d/docker-clean
 RUN --mount=type=cache,target=/var/cache/apt \
 <<EOT
     apt-get update
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends cmake gcc g++ make	        
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends cmake make clang-7	        
     rm -rf /var/lib/apt/lists/*
 EOT
