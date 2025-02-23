@@ -1,0 +1,27 @@
+name: Build docker gcc7 and depends for colorer
+
+on:
+  # workflow_dispatch - manual start build from action menu
+  workflow_dispatch:
+
+jobs:
+  dev-images:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: 'Login to GitHub Container Registry'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.PACKAGES_GITHUB_USER }}
+          password: ${{ secrets.PACKAGES_GITHUB_TOKEN }}
+
+      - name: Build and push base image
+        uses: docker/build-push-action@v6
+        with:
+          file: ./dev-images/Dockerfile.colorer_gcc7
+          push: true
+          tags: ghcr.io/colorer/devimage-colorer:gcc7
+          cache-from: type=registry,ref=ghcr.io/colorer/devimage-colorer:gcc7
+          cache-to: type=inline

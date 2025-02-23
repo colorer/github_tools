@@ -1,0 +1,13 @@
+# Image with depends for Colorer-library 
+
+FROM ghcr.io/colorer/devimage:gcc7 AS build
+
+SHELL ["/bin/bash", "-xeuo", "pipefail", "-c"]
+
+# use docker cache for apt packages
+RUN --mount=type=cache,target=/var/cache/apt \
+<<EOT
+    apt-get update
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends libicu-dev zlib1g-dev libminizip-dev libxml2-dev
+    rm -rf /var/lib/apt/lists/*
+EOT
